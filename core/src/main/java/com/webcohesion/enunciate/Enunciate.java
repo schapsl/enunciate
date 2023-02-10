@@ -622,7 +622,7 @@ public class Enunciate implements Runnable {
       getLogger().debug("Detected API Types: %s", new EnunciateLogger.ListWriter(includedTypes));
 
       //gather all the java source files.
-      List<URL> sourceFiles = getSourceFileURLs();
+      Set<URL> sourceFiles = getSourceFileURLs();
       URLClassLoader apiClassLoader = new URLClassLoader(scanpath.toArray(new URL[scanpath.size()]));
       for (String javaFile : scannedSourceFiles) {
 
@@ -808,8 +808,8 @@ public class Enunciate implements Runnable {
     return builder.toString();
   }
 
-  protected List<URL> getSourceFileURLs() {
-    List<URL> sourceFiles = new ArrayList<URL>(this.sourceFiles.size());
+  protected Set<URL> getSourceFileURLs() {
+    Set<URL> sourceFiles = new HashSet<URL>(this.sourceFiles.size());
     for (File sourceFile : this.sourceFiles) {
       try {
         sourceFiles.add(sourceFile.toURI().toURL());
